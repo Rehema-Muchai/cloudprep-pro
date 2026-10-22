@@ -13,7 +13,7 @@ export function buildPlan(start: Date, exam: Date, hoursPerDay: number) {
   const fmt = (d: Date) => d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
   const weeks = Array.from({ length: weekCount }, (_, i) => {
     // Spread phases across weeks; last week is always review.
-    const phase = i === weekCount - 1 ? PHASES[5] : PHASES[Math.floor((i * 5) / Math.max(1, weekCount - 1))];
+    const phase = i === weekCount - 1 ? PHASES[5]! : PHASES[Math.floor((i * 5) / Math.max(1, weekCount - 1))]!;
     const s = new Date(start.getTime() + i * 7 * 86400000);
     const daysInWeek = Math.min(7, days - i * 7);
     const e = new Date(s.getTime() + (daysInWeek - 1) * 86400000);

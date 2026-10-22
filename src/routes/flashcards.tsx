@@ -25,7 +25,7 @@ function Flashcards() {
   const [queue, setQueue] = useState<FlashItem[]>(() => [...FLASHCARDS]);
   const [flipped, setFlipped] = useState(false);
   const [session, setSession] = useState(0);
-  const card = queue[0];
+  const card = queue[0]!;
   const hardCount = Object.values(cardRatings).filter((r) => r === "hard").length;
 
   const rate = (r: Rating) => {

@@ -34,7 +34,7 @@ function Quiz() {
 
   const restart = (f = filter) => { setFilter(f); setRound((r) => r + 1); setI(0); setPicked(null); setWhy(false); setScore(0); };
   const done = i >= questions.length;
-  const q = questions[i];
+  const q = questions[i]!;
 
   const choose = (opt: string) => {
     if (picked) return;
