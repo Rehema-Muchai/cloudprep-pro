@@ -1,26 +1,36 @@
-# CloudPrep Pro
+# CloudPrep Pro: The All-in-One AZ-900 Toolkit ☁️🔥
 
-Implement exactly the screenshot and nothing else
+![CloudPrep Pro Preview](https://screenshot-to-silhouette-880.lovable.app/favicon.ico) <!-- You can replace this with a screenshot later -->
 
-This project was built with [Lovable](https://lovable.dev).
+**Live Demo:** [CloudPrep Pro on Lovable](https://screenshot-to-silhouette-880.lovable.app)
 
-**Live app**: https://cloudprep-pro.lovable.app
+Built for the **Vibe Coding Hackathon: AZ-900 Exam Prep Edition** (#1MillionDevs 2026).
 
-## Build with Lovable
+## 🎯 The Problem (Target Users & Understanding)
+Through my experience in the PLP bootcamp and as a tech community leader at KCA University, I noticed a recurring problem: students cram for the AZ-900 by memorizing answers without understanding the "Why". Cloud concepts feel abstract and disconnected from our daily lives.
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/23b6afe5-e3f8-4907-8920-9495f6cae2d9).
+**CloudPrep Pro** solves this by combining 5 tools into one:
+1. **Readiness Tracker:** Dynamically tracks progress across the 3 core AZ-900 pillars.
+2. **Smart Quiz Builder:** 30 questions with immediate, detailed "Why?" explanations.
+3. **Flashcard Coach:** Spaced-repetition learning for core terminology.
+4. **Study Planner:** Generates a custom weekly schedule based on the user's exam date.
+5. **AI Study Buddy:** Explains abstract cloud concepts using **relatable African analogies** (e.g., CapEx/OpEx = Buying a Matatu vs. using a ride-hailing app).
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+## 🧠 Prompt Engineering Strategy
+To build a massive 5-in-1 app rapidly, I utilized **"God-Tier Mega-Prompts"** in Lovable. 
+* **Data-Seed Injection:** Instead of relying on the AI to randomly generate questions, I injected a heavily structured JSON array of 8 highly accurate questions into the initial prompt, and instructed the AI to use that exact schema to auto-generate the remaining 22 questions directly in the code.
+* **Logic Constraints:** I explicitly prompted the AI to use `localStorage` for state management, enforcing a 70/30 weighted math system (Quiz vs. Flashcards) to accurately update the Readiness Tracker.
+* **Vibe Constraints:** I enforced strict UI boundaries (glassmorphism, neon accents, dark mode) and localized tone ("Nairobi Hype" notifications like *Moto kabisa!*) in a single layout prompt without breaking the underlying React logic.
 
-## Development
+## 🛠️ Technical Creativity & UX
+* **Spaced Repetition Math:** Flashcards dynamically sort based on "Hard" (reappears in 2 cards), "Good" (6 cards), and "Easy" (sent to back).
+* **Gamification:** Integrated Confetti explosions for 80%+ quiz scores and built-in Pomodoro focus timers.
+* **Scalable Architecture:** Designed with a "Certification Switcher" in mind. While currently focused on AZ-900, the architecture is ready to easily adapt to AWS CLF-C02 and AI-900 (as shown in the UI).
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+## 🚀 How to Run Locally
+1. Clone the repo: `git clone https://github.com/Rehema-Muchai/cloudprep-pro.git`
+2. Install dependencies: `npm install`
+3. Start the dev server: `npm run dev`
 
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+---
+*Built with React, Tailwind CSS, Lucide Icons, and Lovable. Let the vibes guide your code!*
