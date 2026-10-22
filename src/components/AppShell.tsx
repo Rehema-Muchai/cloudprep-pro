@@ -1,6 +1,23 @@
 import { Link } from "@tanstack/react-router";
 import { LayoutDashboard, ListChecks, Layers, CalendarDays, MessageCircle, Cloud } from "lucide-react";
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
+import { FocusTimer } from "./FocusTimer";
+import { useStore } from "@/lib/store";
+import { celebrate } from "@/lib/hype";
+import type { Pillar } from "@/lib/data";
+
+const PILLARS: Pillar[] = ["Cloud Concepts", "Architecture", "Management"];
+
+// Fires confetti when any pillar newly reaches 100%.
+function usePillarCelebration() {
+  const { pillarScore } = useStore();
+  const scores = PILLARS.map(pillarScore);
+  const prev = useRef<number[] | null>(null);
+  useEffect(() => {
+    if (prev.current && scores.some((v, i) => v === 100 && prev.current![i]! < 100)) celebrate();
+    prev.current = scores;
+  }, [scores.join(",")]);
+}
 
 const NAV = [
   { to: "/", label: "Readiness", icon: LayoutDashboard },
@@ -11,6 +28,7 @@ const NAV = [
 ] as const;
 
 export function AppShell({ children }: { children: ReactNode }) {
+  usePillarCelebration();
   return (
     <div className="flex min-h-screen">
       <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col bg-navy p-5 text-navy-foreground md:flex">
@@ -33,9 +51,12 @@ export function AppShell({ children }: { children: ReactNode }) {
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="flex items-center gap-2 bg-navy px-4 py-3 text-navy-foreground md:hidden">
-          <div className="grid h-8 w-8 place-items-center rounded-lg bg-brand"><Cloud className="h-4 w-4" /></div>
-          <p className="font-display font-bold">CloudPrep Pro</p>
+        <header className="glass sticky top-0 z-40 flex items-center justify-between gap-2 border-x-0 border-t-0 px-4 py-2.5 md:justify-end md:px-8">
+          <div className="flex items-center gap-2 md:hidden">
+            <div className="grid h-8 w-8 place-items-center rounded-lg bg-brand"><Cloud className="h-4 w-4" /></div>
+            <p className="font-display font-bold">CloudPrep Pro</p>
+          </div>
+          <FocusTimer />
         </header>
         <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8 md:px-8">{children}</main>
         <footer className="border-t px-4 py-4 pb-24 text-center text-xs text-muted-foreground md:pb-4">
