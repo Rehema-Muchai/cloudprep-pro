@@ -59,6 +59,12 @@ function Dashboard() {
           <p className="mt-2 text-center text-sm text-muted-foreground">
             {totalScore >= 80 ? "Moto kabisa! 🔥 You're exam ready." : totalScore >= 50 ? "You are cooking! 🍳 Keep going." : "Kaza uzi! (Keep pushing!)"}
           </p>
+          <button
+            onClick={shareForm}
+            className="mt-4 inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-soft transition hover:scale-105 active:scale-95"
+          >
+            <Share2 className="h-4 w-4" /> Share My Form! 🚀
+          </button>
         </section>
         <section className="rounded-2xl bg-card p-6 shadow-soft lg:col-span-3">
           <h2 className="mb-5 font-semibold">AZ-900 Pillars</h2>
