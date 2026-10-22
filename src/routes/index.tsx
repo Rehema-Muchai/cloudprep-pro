@@ -39,6 +39,16 @@ function Ring({ value }: { value: number }) {
 
 function Dashboard() {
   const { totalScore, pillarScore, pillars, activity, reset } = useStore();
+
+  const shareForm = async () => {
+    const text = `I'm ${totalScore}% ready to crush my AZ-900 exam with CloudPrep Pro! Form ni Cloud! ☁️`;
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success("Copied to clipboard!", { description: `"${text}"` });
+    } catch {
+      toast.error("Couldn't copy — your browser blocked clipboard access.");
+    }
+  };
   return (
     <>
       <PageHeader title="Readiness Tracker" sub="Every quiz answer and flashcard review moves these numbers." />
