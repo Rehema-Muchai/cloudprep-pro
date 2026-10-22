@@ -46,7 +46,7 @@ function Dashboard() {
           <h2 className="mb-2 font-semibold">Total Readiness Score</h2>
           <Ring value={totalScore} />
           <p className="mt-2 text-center text-sm text-muted-foreground">
-            {totalScore >= 80 ? "You're exam ready!" : totalScore >= 50 ? "Solid progress — keep going." : "Just getting started."}
+            {totalScore >= 80 ? "Moto kabisa! 🔥 You're exam ready." : totalScore >= 50 ? "You are cooking! 🍳 Keep going." : "Kaza uzi! (Keep pushing!)"}
           </p>
         </section>
         <section className="rounded-2xl bg-card p-6 shadow-soft lg:col-span-3">

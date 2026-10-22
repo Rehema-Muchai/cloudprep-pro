@@ -37,7 +37,7 @@ function Flashcards() {
     setFlipped(false);
     const n = session + 1;
     setSession(n);
-    if (n % 5 === 0) log(`Reviewed ${n} Flashcards`);
+    if (n % 5 === 0) log(`Reviewed ${n} Flashcards — ${n >= 15 ? "Form ni Cloud! ☁️" : "We move regardless!"}`);
   };
 
   return (

@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Check, ChevronDown, X, Trophy } from "lucide-react";
 import { PageHeader } from "@/components/AppShell";
 import { QUIZZES, PILLAR_LABELS, type Pillar } from "@/lib/data";
 import { useStore } from "@/lib/store";
+import { HYPE_MISS, HYPE_WIN, celebrate, pick, scoreHype } from "@/lib/hype";
 
 export const Route = createFileRoute("/quiz")({
   head: () => ({
@@ -23,14 +24,19 @@ function Quiz() {
   const { recordAnswer, log } = useStore();
   const [filter, setFilter] = useState<Pillar | "All">("All");
   const [round, setRound] = useState(0);
-  const questions = useMemo(
-    () => shuffle(QUIZZES.filter((q) => filter === "All" || q.topic === filter)).slice(0, 10),
-    [filter, round],
-  );
+  // Shuffle only after mount so server and browser render the same first question.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+  const questions = useMemo(() => {
+    const pool = QUIZZES.filter((q) => filter === "All" || q.topic === filter);
+    return (mounted ? shuffle(pool) : pool).slice(0, 10);
+  }, [filter, round, mounted]);
   const [i, setI] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);
   const [why, setWhy] = useState(false);
   const [score, setScore] = useState(0);
+  const [hype, setHype] = useState("");
+  const [finalHype, setFinalHype] = useState("");
 
   const restart = (f = filter) => { setFilter(f); setRound((r) => r + 1); setI(0); setPicked(null); setWhy(false); setScore(0); };
   const done = i >= questions.length;
@@ -41,10 +47,17 @@ function Quiz() {
     setPicked(opt);
     const ok = opt === q.correctAnswer;
     if (ok) setScore((s) => s + 1);
+    setHype(pick(ok ? HYPE_WIN : HYPE_MISS));
     recordAnswer(q.topic, ok);
   };
   const next = () => {
-    if (i + 1 >= questions.length) log(`Completed Quiz: ${score}/${questions.length}`);
+    if (i + 1 >= questions.length) {
+      const ratio = score / questions.length;
+      const h = scoreHype(ratio);
+      setFinalHype(h);
+      log(`Completed Quiz: ${score}/${questions.length} — ${h}`);
+      if (ratio >= 0.8) celebrate();
+    }
     setI(i + 1); setPicked(null); setWhy(false);
   };
 
@@ -64,7 +77,8 @@ function Quiz() {
         <div className="rounded-2xl bg-card p-10 text-center shadow-soft">
           <Trophy className="mx-auto h-12 w-12 text-warning" />
           <h2 className="mt-4 text-2xl font-bold">You scored {score}/{questions.length}</h2>
-          <p className="mt-2 text-muted-foreground">Your readiness tracker has been updated.</p>
+          <p className="mt-2 text-lg font-semibold text-brand">{finalHype}</p>
+          <p className="mt-1 text-muted-foreground">Your readiness tracker has been updated.</p>
           <button onClick={() => restart()} className="mt-6 rounded-lg bg-brand px-6 py-2.5 font-medium text-primary-foreground">New quiz</button>
         </div>
       ) : (
@@ -95,6 +109,7 @@ function Quiz() {
           </div>
           {picked && (
             <div className="mt-6 space-y-4">
+              <p className={`animate-in fade-in zoom-in-95 text-center text-lg font-bold ${picked === q.correctAnswer ? "text-success" : "text-destructive"}`}>{hype}</p>
               <button onClick={() => setWhy(!why)} className="flex w-full items-center justify-between rounded-xl bg-muted px-4 py-3 font-medium">
                 Why?
                 <ChevronDown className={`h-4 w-4 transition ${why ? "rotate-180" : ""}`} />

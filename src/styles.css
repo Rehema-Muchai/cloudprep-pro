@@ -90,3 +90,22 @@
 @utility preserve-3d { transform-style: preserve-3d; }
 @utility backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
 @utility rotate-y-180 { transform: rotateY(180deg); }
+
+:root { --cyan: oklch(0.8 0.14 210); }
+@utility glass {
+  background: color-mix(in oklab, var(--navy) 82%, transparent);
+  color: var(--navy-foreground);
+  backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in oklab, var(--navy-foreground) 14%, transparent);
+}
+@utility timer-glow {
+  background-image: linear-gradient(90deg, var(--cyan), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--cyan) 70%, transparent));
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+@keyframes glow-pulse {
+  50% { filter: drop-shadow(0 0 10px color-mix(in oklab, var(--secondary) 80%, transparent)); }
+}
