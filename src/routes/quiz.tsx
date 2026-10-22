@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Check, ChevronDown, X, Trophy } from "lucide-react";
 import { PageHeader } from "@/components/AppShell";
 import { QUIZZES, PILLAR_LABELS, type Pillar } from "@/lib/data";
@@ -24,10 +24,13 @@ function Quiz() {
   const { recordAnswer, log } = useStore();
   const [filter, setFilter] = useState<Pillar | "All">("All");
   const [round, setRound] = useState(0);
-  const questions = useMemo(
-    () => shuffle(QUIZZES.filter((q) => filter === "All" || q.topic === filter)).slice(0, 10),
-    [filter, round],
-  );
+  // Shuffle only after mount so server and browser render the same first question.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+  const questions = useMemo(() => {
+    const pool = QUIZZES.filter((q) => filter === "All" || q.topic === filter);
+    return (mounted ? shuffle(pool) : pool).slice(0, 10);
+  }, [filter, round, mounted]);
   const [i, setI] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);
   const [why, setWhy] = useState(false);
