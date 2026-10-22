@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Activity, ArrowRight, RotateCcw } from "lucide-react";
+import { Activity, ArrowRight, RotateCcw, Share2 } from "lucide-react";
+import { toast } from "sonner";
 import { PageHeader } from "@/components/AppShell";
 import { useStore } from "@/lib/store";
 import { PILLAR_LABELS, type Pillar } from "@/lib/data";
