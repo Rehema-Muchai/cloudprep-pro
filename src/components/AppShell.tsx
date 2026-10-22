@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { LayoutDashboard, ListChecks, Layers, CalendarDays, MessageCircle, Cloud } from "lucide-react";
 import { useEffect, useRef, type ReactNode } from "react";
 import { FocusTimer } from "./FocusTimer";
+import { CertSwitcher } from "./CertSwitcher";
 import { useStore } from "@/lib/store";
 import { celebrate } from "@/lib/hype";
 import type { Pillar } from "@/lib/data";
