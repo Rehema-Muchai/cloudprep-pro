@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { LayoutDashboard, ListChecks, Layers, CalendarDays, MessageCircle, Cloud } from "lucide-react";
 import { useEffect, useRef, type ReactNode } from "react";
 import { FocusTimer } from "./FocusTimer";
+import { CertSwitcher } from "./CertSwitcher";
 import { useStore } from "@/lib/store";
 import { celebrate } from "@/lib/hype";
 import type { Pillar } from "@/lib/data";
@@ -56,7 +57,10 @@ export function AppShell({ children }: { children: ReactNode }) {
             <div className="grid h-8 w-8 place-items-center rounded-lg bg-brand"><Cloud className="h-4 w-4" /></div>
             <p className="font-display font-bold">CloudPrep Pro</p>
           </div>
-          <FocusTimer />
+          <div className="flex items-center gap-2">
+            <CertSwitcher />
+            <FocusTimer />
+          </div>
         </header>
         <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8 md:px-8">{children}</main>
         <footer className="border-t px-4 py-4 pb-24 text-center text-xs text-muted-foreground md:pb-4">

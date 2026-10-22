@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Activity, ArrowRight, RotateCcw } from "lucide-react";
+import { Activity, ArrowRight, RotateCcw, Share2 } from "lucide-react";
+import { toast } from "sonner";
 import { PageHeader } from "@/components/AppShell";
 import { useStore } from "@/lib/store";
 import { PILLAR_LABELS, type Pillar } from "@/lib/data";
@@ -38,6 +39,16 @@ function Ring({ value }: { value: number }) {
 
 function Dashboard() {
   const { totalScore, pillarScore, pillars, activity, reset } = useStore();
+
+  const shareForm = async () => {
+    const text = `I'm ${totalScore}% ready to crush my AZ-900 exam with CloudPrep Pro! Form ni Cloud! ☁️`;
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success("Copied to clipboard!", { description: `"${text}"` });
+    } catch {
+      toast.error("Couldn't copy — your browser blocked clipboard access.");
+    }
+  };
   return (
     <>
       <PageHeader title="Readiness Tracker" sub="Every quiz answer and flashcard review moves these numbers." />
@@ -48,6 +59,12 @@ function Dashboard() {
           <p className="mt-2 text-center text-sm text-muted-foreground">
             {totalScore >= 80 ? "Moto kabisa! 🔥 You're exam ready." : totalScore >= 50 ? "You are cooking! 🍳 Keep going." : "Kaza uzi! (Keep pushing!)"}
           </p>
+          <button
+            onClick={shareForm}
+            className="mt-4 inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-soft transition hover:scale-105 active:scale-95"
+          >
+            <Share2 className="h-4 w-4" /> Share My Form! 🚀
+          </button>
         </section>
         <section className="rounded-2xl bg-card p-6 shadow-soft lg:col-span-3">
           <h2 className="mb-5 font-semibold">AZ-900 Pillars</h2>
