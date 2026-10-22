@@ -1,8 +1,8 @@
 # CloudPrep Pro: The All-in-One AZ-900 Toolkit ☁️🔥
 
-![CloudPrep Pro Preview](https://screenshot-to-silhouette-880.lovable.app/favicon.ico) <!-- You can replace this with a screenshot later -->
+![CloudPrep Pro Preview](<img width="959" height="446" alt="image" src="https://github.com/user-attachments/assets/037a3289-75d1-4bd0-9a22-3cd612466c39" />) <!-- You can replace this with a screenshot later -->
 
-**Live Demo:** [CloudPrep Pro on Lovable](https://screenshot-to-silhouette-880.lovable.app)
+**Live Demo:** [CloudPrep Pro on Lovable](https://cloudprep-pro.lovable.app)
 
 Built for the **Vibe Coding Hackathon: AZ-900 Exam Prep Edition** (#1MillionDevs 2026).
 
